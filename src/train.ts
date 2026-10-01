@@ -22,10 +22,17 @@
 // console.log(palindromCheck("aziza")); // true
 
 // task o
-function calculateSumOfNumbers(result: any[]): number {
-    return result.reduce((sum: number, item: any) => {
-        return typeof item === 'number' ? sum + item : sum;
-    }, 0);
+// function calculateSumOfNumbers(result: any[]): number {
+//     return result.reduce((sum: number, item: any) => {
+//         return typeof item === 'number' ? sum + item : sum;
+//     }, 0);
+// }
+
+// console.log(calculateSumOfNumbers([10, "10", { son: 10 }, true, 35, 5])); 
+
+// task p
+function objectToArray(obj: Object) {
+    return Object.entries(obj);
 }
 
-console.log(calculateSumOfNumbers([10, "10", { son: 10 }, true, 35, 5])); 
+console.log(objectToArray({ a: 10, b: 20 }));
