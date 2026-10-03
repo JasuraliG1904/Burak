@@ -28,11 +28,29 @@
 //     }, 0);
 // }
 
-// console.log(calculateSumOfNumbers([10, "10", { son: 10 }, true, 35, 5])); 
+// console.log(calculateSumOfNumbers([10, "10", { son: 10 }, true, 35, 5]));
 
 // task p
-function objectToArray(obj: Object) {
-    return Object.entries(obj);
+// function objectToArray(obj: Object) {
+//     return Object.entries(obj);
+// }
+
+// console.log(objectToArray({ a: 10, b: 20 }));
+
+/*
+
+VPS - virtual priv server. 1ta yacheyka, scan qilib bolmaydi
+VPC - Virtual p. cloud. yacheykalar toplami
+
+nodejs- client serverdir, markaziydir
+peer-to-peer - db -1joyda bolmaydi, 1ta ozgarsa, qolganlari qayta holiga qaytaradi.
+autherication.: Sessions(cookies)da, tokens(cookies)da, tokens(headers)da saqalashda ishladamiz
+*/
+
+// Q-task
+function hasProperty(obj: Object, prop: string): boolean {
+    return prop in obj;
 }
 
-console.log(objectToArray({ a: 10, b: 20 }));
+console.log(hasProperty({ name: "BMW", model: "M3" }, "model")); // true
+console.log(hasProperty({ name: "BMW", model: "M3" }, "year")); // false

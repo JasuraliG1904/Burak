@@ -7,7 +7,7 @@ const restaurantController: T = {};
 
 restaurantController.goHome = (req: Request, res: Response) => {
     try {
-        res.send("Home Page");
+        res.render("home")
     } catch (err) {
         console.log("Error, goHome:", err);
     }
@@ -15,7 +15,7 @@ restaurantController.goHome = (req: Request, res: Response) => {
 
 restaurantController.getLogin = (req: Request, res: Response) => {
     try {
-        res.send("Login Page");
+        res.render("login")
     } catch (err) {
         console.log("Error, getLogin:", err);
     }
@@ -23,27 +23,27 @@ restaurantController.getLogin = (req: Request, res: Response) => {
 
 restaurantController.getSignup = (req: Request, res: Response) => {
     try {
-        res.send("Sign up Page");
+        res.render("signup")
     } catch (err) {
         console.log("Error, getSignup:", err);
     }
 };
-restaurantController.processLogin = (req: Request, res: Response) => {
-    restaurantController.processLogin = async (req: Request, res: Response) => {
-        try {
-            console.log("processLogin");
-            console.log("body:", req.body);
-            const input: LoginInput = req.body;
+restaurantController.processLogin = async (req: Request, res: Response) => {
+    try {
+        console.log("processLogin");
+        console.log("body:", req.body);
+        const input: LoginInput = req.body;
 
-            const memberService = new MemberService();
-            const result = await memberService.processLogin(input);
+        const memberService = new MemberService();
+        // todo SESSION AUTHENTICATION
 
-            res.send(result);
-        } catch (err) {
-            console.log("Error, processLogin:", err);
-            res.send(err);
-        }
-    };
+        const result = await memberService.processLogin(input);
+
+        res.send(result);
+    } catch (err) {
+        console.log("Error, processLogin:", err);
+        res.send(err);
+    }
 };
 restaurantController.processSignup = async (req: Request, res: Response) => {
     try {
@@ -53,6 +53,8 @@ restaurantController.processSignup = async (req: Request, res: Response) => {
         newMember.memberType = MemberType.RESTAURANT;
 
         const memberService = new MemberService();
+        // todo SESSION AUTHENTICATION
+
         const result = await memberService.processSignup(newMember);
         res.send(result);
     }
