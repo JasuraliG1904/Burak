@@ -16,7 +16,8 @@ export enum Message {
 
     USED_NICK_PHONE = "You are already used nick or password",
     NO_MEMBER_NICK = "NO MEMBER",
-    WRONG_PASSWORD = "Wrong password, please try again"
+    WRONG_PASSWORD = "Wrong password, please try again",
+    NOT_AUTHENTICATED ="You are not login"
 }
 class Errors extends Error {
     public code: HttpCode;

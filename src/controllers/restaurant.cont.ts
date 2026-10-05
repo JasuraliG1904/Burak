@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import { T } from "../libs/types/common";
 import MemberService from "../models/member.service";
-import { LoginInput, MemberInput } from "../libs/types/member";
+import { AdminRequest, LoginInput, MemberInput } from "../libs/types/member";
 import { MemberType } from "../libs/enums/member.enum";
+import Errors, { Message } from "../libs/Errors";
 const restaurantController: T = {};
 
 restaurantController.goHome = (req: Request, res: Response) => {
@@ -18,16 +19,21 @@ restaurantController.getLogin = (req: Request, res: Response) => {
         res.render("login")
     } catch (err) {
         console.log("Error, getLogin:", err);
+        res.redirect("/admin")
     }
 };
+
 
 restaurantController.getSignup = (req: Request, res: Response) => {
     try {
         res.render("signup")
     } catch (err) {
         console.log("Error, getSignup:", err);
+        res.redirect("/admin")
     }
 };
+
+
 restaurantController.processLogin = async (req: Request, res: Response) => {
     try {
         console.log("processLogin");
@@ -42,10 +48,13 @@ restaurantController.processLogin = async (req: Request, res: Response) => {
         res.send(result);
     } catch (err) {
         console.log("Error, processLogin:", err);
-        res.send(err);
+        const message = err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG
+        res.send(`<script>alert("${message}"); window.location.replace('admin/login')</script>`);
     }
 };
-restaurantController.processSignup = async (req: Request, res: Response) => {
+
+
+restaurantController.processSignup = async (req: AdminRequest, res: Response) => {
     try {
         console.log(req.body);
 
@@ -53,14 +62,49 @@ restaurantController.processSignup = async (req: Request, res: Response) => {
         newMember.memberType = MemberType.RESTAURANT;
 
         const memberService = new MemberService();
+        const result = await memberService.processSignup(newMember);
         // todo SESSION AUTHENTICATION
 
-        const result = await memberService.processSignup(newMember);
-        res.send(result);
+
+        req.session.member = result;
+        req.session.save(function () {
+            res.send(result);
+        })
     }
     catch (err) {
         console.log("Error, processSignup:", err);
+        const message = err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG
+        res.send(`<script>alert("${message}"); window.location.replace('admin/signup')</script>`);
+
+    }
+};
+
+
+restaurantController.checkAuthession = async (req: AdminRequest, res: Response) => {
+    try {
+        console.log("checkAuthession");
+        if (req.session?.member)
+            res.send(`<script>alert("${req.session.member.memberNick}")</script>`);
+        else res.send(`<script>alert("${Message.NOT_AUTHENTICATED}")</script>`);
+    }
+    catch (err) {
+        console.log("Error, checkAuthession:", err);
         res.send(err);
+    }
+};
+
+
+restaurantController.logout = async (req: AdminRequest, res: Response) => {
+    try {
+        console.log("logout");
+        req.session.destroy(function () {
+            res.redirect("/admin")
+        })
+    }
+    catch (err) {
+        console.log("Error, logout:", err);
+        res.redirect("/admin")
+
     }
 };
 

@@ -48,9 +48,18 @@ autherication.: Sessions(cookies)da, tokens(cookies)da, tokens(headers)da saqala
 */
 
 // Q-task
-function hasProperty(obj: Object, prop: string): boolean {
-    return prop in obj;
+// function hasProperty(obj: Object, prop: string): boolean {
+//     return prop in obj;
+// }
+
+// console.log(hasProperty({ name: "BMW", model: "M3" }, "model")); // true
+// console.log(hasProperty({ name: "BMW", model: "M3" }, "year")); // false
+
+// R-task
+function calculate(str: string): number {
+  return str.split('+').reduce((sum: number, item: string) => sum + Number(item), 0);
 }
 
-console.log(hasProperty({ name: "BMW", model: "M3" }, "model")); // true
-console.log(hasProperty({ name: "BMW", model: "M3" }, "year")); // false
+// Testlar:
+console.log(calculate("1+3"));  
+console.log(calculate("10+20")); 
