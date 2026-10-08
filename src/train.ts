@@ -56,10 +56,29 @@ autherication.: Sessions(cookies)da, tokens(cookies)da, tokens(headers)da saqala
 // console.log(hasProperty({ name: "BMW", model: "M3" }, "year")); // false
 
 // R-task
-function calculate(str: string): number {
-  return str.split('+').reduce((sum: number, item: string) => sum + Number(item), 0);
-}
+// function calculate(str: string): number {
+//   return str.split('+').reduce((sum: number, item: string) => sum + Number(item), 0);
+// }
 
 // Testlar:
-console.log(calculate("1+3"));  
-console.log(calculate("10+20")); 
+// console.log(calculate("1+3"));  
+// console.log(calculate("10+20")); 
+
+// S task
+function missingNumber(nums: number[]): number {
+    const n: number = nums.length;
+    
+    // 0 dan n gacha bo'lgan ideal sonlar yig'indisi: (n * (n + 1)) / 2
+    const expectedSum: number = (n * (n + 1)) / 2;
+    
+    // Massivdagi bor sonlarning haqiqiy yig'indisi
+    const actualSum: number = nums.reduce((sum: number, num: number) => sum + num, 0);
+    
+    // Tushib qolgan son
+    return expectedSum - actualSum;
+}
+
+// Tekshirish:
+console.log(missingNumber([3, 0, 1]));       // Javob: 2
+console.log(missingNumber([9, 6, 4, 2, 3, 5, 7, 0, 1])); // Javob: 8
+console.log(missingNumber([0, 1]));          // Javob: 2
