@@ -59,7 +59,7 @@ restaurantController.processSignup = async (req: AdminRequest, res: Response) =>
     try {
         console.log(req.body);
         const file = req.file;
-        if (!file) throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
+        // if (!file) throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
 
 
         const newMember: MemberInput = req.body;
