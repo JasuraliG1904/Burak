@@ -44,7 +44,7 @@ restaurantController.processLogin = async (req: Request, res: Response) => {
         // todo SESSION AUTHENTICATION
 
         const result = await memberService.processLogin(input);
-
+        
         res.redirect("/admin/product/all");
 
     } catch (err) {

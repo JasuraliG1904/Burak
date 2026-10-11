@@ -65,20 +65,59 @@ autherication.: Sessions(cookies)da, tokens(cookies)da, tokens(headers)da saqala
 // console.log(calculate("10+20")); 
 
 // S task
-function missingNumber(nums: number[]): number {
-    const n: number = nums.length;
+// function missingNumber(nums: number[]): number {
+//     const n: number = nums.length;
     
-    // 0 dan n gacha bo'lgan ideal sonlar yig'indisi: (n * (n + 1)) / 2
-    const expectedSum: number = (n * (n + 1)) / 2;
+//     // 0 dan n gacha bo'lgan ideal sonlar yig'indisi: (n * (n + 1)) / 2
+//     const expectedSum: number = (n * (n + 1)) / 2;
     
-    // Massivdagi bor sonlarning haqiqiy yig'indisi
-    const actualSum: number = nums.reduce((sum: number, num: number) => sum + num, 0);
+//     // Massivdagi bor sonlarning haqiqiy yig'indisi
+//     const actualSum: number = nums.reduce((sum: number, num: number) => sum + num, 0);
     
-    // Tushib qolgan son
-    return expectedSum - actualSum;
+//     // Tushib qolgan son
+//     return expectedSum - actualSum;
+// }
+
+// // Tekshirish:
+// console.log(missingNumber([3, 0, 1]));       // Javob: 2
+// console.log(missingNumber([9, 6, 4, 2, 3, 5, 7, 0, 1])); // Javob: 8
+// console.log(missingNumber([0, 1]));          // Javob: 2
+
+// T-task
+function mergeSortedArrays(arr1: number[], arr2: number[]): number[] {
+    const merged: number[] = [];
+    let i = 0;
+    let j = 0;
+
+    // Ikkala array elementlarini solishtirib, kattagina/kichigini qo'shib boramiz
+    while (i < arr1.length && j < arr2.length) {
+        if (arr1[i] < arr2[j]) {
+            merged.push(arr1[i]);
+            i++;
+        } else {
+            merged.push(arr2[j]);
+            j++;
+        }
+    }
+
+    // Birinchi arrayda qolgan elementlar bo'lsa, qo'shamiz
+    while (i < arr1.length) {
+        merged.push(arr1[i]);
+        i++;
+    }
+
+    // Ikkinchi arrayda qolgan elementlar bo'lsa, qo'shamiz
+    while (j < arr2.length) {
+        merged.push(arr2[j]);
+        j++;
+    }
+
+    return merged;
 }
 
-// Tekshirish:
-console.log(missingNumber([3, 0, 1]));       // Javob: 2
-console.log(missingNumber([9, 6, 4, 2, 3, 5, 7, 0, 1])); // Javob: 8
-console.log(missingNumber([0, 1]));          // Javob: 2
+// Sinov uchun:
+const array1 = [0, 3, 4, 31];
+const array2 = [4, 6, 30];
+
+console.log(mergeSortedArrays(array1, array2)); 
+// Natija: [0, 3, 4, 4, 6, 30, 31]
