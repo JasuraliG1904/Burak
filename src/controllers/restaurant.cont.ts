@@ -44,7 +44,7 @@ restaurantController.getUsers = async (req: Request, res: Response) => {
         res.redirect("/admin/login")
     }
 }
-restaurantController.updateChosenUsers = (req: Request, res: Response) => {
+restaurantController.updateChosenUsers =  async (req: Request, res: Response) => {
     try {
         console.log("updateChosenUsers");
         const result = memberService.updateChosenUsers(req.body);
