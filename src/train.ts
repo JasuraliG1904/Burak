@@ -84,40 +84,54 @@ autherication.: Sessions(cookies)da, tokens(cookies)da, tokens(headers)da saqala
 // console.log(missingNumber([0, 1]));          // Javob: 2
 
 // T-task
-function mergeSortedArrays(arr1: number[], arr2: number[]): number[] {
-    const merged: number[] = [];
-    let i = 0;
-    let j = 0;
+// function mergeSortedArrays(arr1: number[], arr2: number[]): number[] {
+//     const merged: number[] = [];
+//     let i = 0;
+//     let j = 0;
 
-    // Ikkala array elementlarini solishtirib, kattagina/kichigini qo'shib boramiz
-    while (i < arr1.length && j < arr2.length) {
-        if (arr1[i] < arr2[j]) {
-            merged.push(arr1[i]);
-            i++;
-        } else {
-            merged.push(arr2[j]);
-            j++;
+//     // Ikkala array elementlarini solishtirib, kattagina/kichigini qo'shib boramiz
+//     while (i < arr1.length && j < arr2.length) {
+//         if (arr1[i] < arr2[j]) {
+//             merged.push(arr1[i]);
+//             i++;
+//         } else {
+//             merged.push(arr2[j]);
+//             j++;
+//         }
+//     }
+
+//     // Birinchi arrayda qolgan elementlar bo'lsa, qo'shamiz
+//     while (i < arr1.length) {
+//         merged.push(arr1[i]);
+//         i++;
+//     }
+
+//     // Ikkinchi arrayda qolgan elementlar bo'lsa, qo'shamiz
+//     while (j < arr2.length) {
+//         merged.push(arr2[j]);
+//         j++;
+//     }
+
+//     return merged;
+// }
+
+// // Sinov uchun:
+// const array1 = [0, 3, 4, 31];
+// const array2 = [4, 6, 30];
+
+// console.log(mergeSortedArrays(array1, array2)); 
+// // Natija: [0, 3, 4, 4, 6, 30, 31]
+
+// U-task
+function sumOdds(n: number): number {
+    let count = 0;
+    for (let i = 0; i < n; i++) {
+        if (i % 2 !== 0) {
+            count++;
         }
     }
-
-    // Birinchi arrayda qolgan elementlar bo'lsa, qo'shamiz
-    while (i < arr1.length) {
-        merged.push(arr1[i]);
-        i++;
-    }
-
-    // Ikkinchi arrayda qolgan elementlar bo'lsa, qo'shamiz
-    while (j < arr2.length) {
-        merged.push(arr2[j]);
-        j++;
-    }
-
-    return merged;
+    return count;
 }
 
-// Sinov uchun:
-const array1 = [0, 3, 4, 31];
-const array2 = [4, 6, 30];
-
-console.log(mergeSortedArrays(array1, array2)); 
-// Natija: [0, 3, 4, 4, 6, 30, 31]
+console.log(sumOdds(9));  
+console.log(sumOdds(11)); 

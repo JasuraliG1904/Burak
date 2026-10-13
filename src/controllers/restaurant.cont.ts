@@ -6,6 +6,7 @@ import { MemberType } from "../libs/enums/member.enum";
 import Errors, { HttpCode, Message } from "../libs/Errors";
 const restaurantController: T = {};
 
+const memberService = new MemberService();
 restaurantController.goHome = (req: Request, res: Response) => {
     try {
         res.render("home")
@@ -32,19 +33,42 @@ restaurantController.getSignup = (req: Request, res: Response) => {
         res.redirect("/admin")
     }
 };
+restaurantController.getUsers = async (req: Request, res: Response) => {
+    try {
+        console.log("getUsers");
+        const result = await memberService.getUsers();
+        console.log("result:", result);
+        res.render("users", { users: result })
+    } catch (err) {
+        console.log("Error, getUsers:", err);
+        res.redirect("/admin/login")
+    }
+}
+restaurantController.updateChosenUsers = (req: Request, res: Response) => {
+    try {
+        console.log("updateChosenUsers");
+        const result = memberService.updateChosenUsers(req.body);
 
-
+        res.status(HttpCode.OK).json({ data: result });
+    } catch (err) {
+        console.log("Error, updateChosenUsers:", err);
+        if (err instanceof Errors) {
+            res.status(err.code).json(err);
+        } else {
+            res.status(Errors.standard.code).json(Errors.standard);
+        }
+    }
+}
 restaurantController.processLogin = async (req: Request, res: Response) => {
     try {
         console.log("processLogin");
         console.log("body:", req.body);
         const input: LoginInput = req.body;
 
-        const memberService = new MemberService();
         // todo SESSION AUTHENTICATION
 
         const result = await memberService.processLogin(input);
-        
+
         res.redirect("/admin/product/all");
 
     } catch (err) {
@@ -59,14 +83,13 @@ restaurantController.processSignup = async (req: AdminRequest, res: Response) =>
     try {
         console.log(req.body);
         const file = req.file;
-        // if (!file) throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
+        if (!file) throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
 
 
         const newMember: MemberInput = req.body;
         newMember.memberImage = file?.path.replace(/\\/g, "/");
         newMember.memberType = MemberType.RESTAURANT;
 
-        const memberService = new MemberService();
         const result = await memberService.processSignup(newMember);
         // todo SESSION AUTHENTICATION
 
