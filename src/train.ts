@@ -123,15 +123,34 @@ autherication.: Sessions(cookies)da, tokens(cookies)da, tokens(headers)da saqala
 // // Natija: [0, 3, 4, 4, 6, 30, 31]
 
 // U-task
-function sumOdds(n: number): number {
-    let count = 0;
-    for (let i = 0; i < n; i++) {
-        if (i % 2 !== 0) {
-            count++;
-        }
+// function sumOdds(n: number): number {
+//     let count = 0;
+//     for (let i = 0; i < n; i++) {
+//         if (i % 2 !== 0) {
+//             count++;
+//         }
+//     }
+//     return count;
+// }
+
+// console.log(sumOdds(9));  
+// console.log(sumOdds(11)); 
+
+// V -task
+
+function countChars(str: string) {
+    const charMap: any = {};
+
+    for (let char of str) {
+        charMap[char] = (charMap[char] || 0) + 1;
     }
-    return count;
+
+    return charMap;
 }
 
-console.log(sumOdds(9));  
-console.log(sumOdds(11)); 
+// Tekshirish:
+console.log(countChars("hello")); // { h: 1, e: 1, l: 2, o: 1 }
+
+
+
+
