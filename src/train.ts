@@ -138,19 +138,32 @@ autherication.: Sessions(cookies)da, tokens(cookies)da, tokens(headers)da saqala
 
 // V -task
 
-function countChars(str: string) {
-    const charMap: any = {};
+// function countChars(str: string) {
+//     const charMap: any = {};
 
-    for (let char of str) {
-        charMap[char] = (charMap[char] || 0) + 1;
+//     for (let char of str) {
+//         charMap[char] = (charMap[char] || 0) + 1;
+//     }
+
+//     return charMap;
+// }
+
+// // Tekshirish:
+// console.log(countChars("hello")); // { h: 1, e: 1, l: 2, o: 1 }
+
+
+function chunkArray(arr: number[], size: number) {
+    const result: number[][] = [];
+
+    for (let i = 0; i < arr.length; i += size) {
+        const chunk = arr.slice(i, i + size);
+        result.push(chunk);
     }
 
-    return charMap;
+    return result;
 }
 
-// Tekshirish:
-console.log(countChars("hello")); // { h: 1, e: 1, l: 2, o: 1 }
-
-
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+console.log(chunkArray(numbers, 3));
 
 
