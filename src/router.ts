@@ -1,7 +1,10 @@
 import express from "express";
 const router = express.Router();
 import memberController from "./controllers/member.cont";
+import uploader from "./libs/utils/uploader";
 
+// Member
+router.get("/member/restaurant", memberController.getRestaurant);
 router
     .post("/member/login", memberController.login);;
 router
@@ -14,4 +17,8 @@ router
 router
     .get("/member/detail", memberController.verifyAuth, memberController.getMemberDetail);
 
+router.post("/member/update", memberController.verifyAuth, uploader("member").single("memberImage"), memberController.updateMember);
+
+router.get("/member/top-users", memberController.getTopUsers);
+// Product
 export default router;
