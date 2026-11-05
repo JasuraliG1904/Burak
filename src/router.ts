@@ -32,7 +32,7 @@ router.get("/member/top-users", memberController.getTopUsers);
 router.get("/product/all", productController.getProducts);
 // {router.get("/product/all/:id/:name", productController.getProducts) postmanda urldan /id/11/name/dav yozsak, terminalda params: { id: '11', name: 'dav' } - chiqadi};
 router.get(
-  "/member/:id",
+  "/product/:id",
   memberController.retrieveAuth,
   productController.getProduct,
 );
