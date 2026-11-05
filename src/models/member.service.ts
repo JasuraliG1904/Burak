@@ -77,7 +77,7 @@ class MemberService {
 
   public async getTopUsers(): Promise<Member[]> {
     const result = await this.memberModel
-      .find({ memberstatus: MemberStatus.ACTIVE, memberPoints: { $gt: 1 },})
+      .find({ memberstatus: MemberStatus.ACTIVE, memberPoints: { $gte: 1 },})
         .sort({ memberPoints: +1 })
         .limit(4)
       .exec();
