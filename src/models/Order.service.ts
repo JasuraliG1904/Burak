@@ -1,5 +1,5 @@
-import OrderItemModel from "../schema/OrderItem.model";
-import OrderModel from "../schema/Order.model";
+import OrderItemModel from "../schema/OrderItem.schema";
+import OrderModel from "../schema/Order.schema";
 import { Member } from "../libs/types/member";
 import { shapeIntoMongooseObjectId } from "../libs/config";
 import Errors, { HttpCode, Message } from "../libs/Errors";
