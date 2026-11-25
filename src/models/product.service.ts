@@ -117,9 +117,9 @@ class ProductService {
     input: ProductUpdateInput,
   ): Promise<Product> {
     //string id > ObjectId
-    id: shapeIntoMongooseObjectId(id);
+    const _id = shapeIntoMongooseObjectId(id);
     const result = await this.productModel
-      .findByIdAndUpdate({ _id: id }, input, { new: true })
+      .findByIdAndUpdate(_id, input, { new: true })
       .exec();
 
     if (!result) {

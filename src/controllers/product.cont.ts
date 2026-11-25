@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Errors, { HttpCode, Message } from "../libs/Errors";
 import { T } from "../libs/types/common";
 import ProductService from "../models/product.service";
-import { ProductInput } from "../libs/types/product";
+import { ProductInput, ProductInquiry } from "../libs/types/product";
 import { AdminRequest, ExtendedRequest } from "../libs/types/member";
 import { ProductCollection } from "../libs/enums/product.enum";
 
@@ -15,29 +15,19 @@ productController.getProducts = async (req: Request, res: Response) => {
     console.log("getProducts");
 
     const { page, limit, order, productCollection, search } = req.query;
-    const inquiry = {
-      page: Number(page),
-      limit: Number(limit),
-      order: String(order),
-      productCollection: String(productCollection) as ProductCollection,
-      search: String(search),
+    const inquiry: ProductInquiry = {
+      order: String(order ?? "createdAt"),
+      page: Number(page ?? 1),
+      limit: Number(limit ?? 10),
     };
 
-    if (productCollection)
+    if (productCollection && productCollection !== "undefined")
       inquiry.productCollection = productCollection as ProductCollection;
-    if (search) inquiry.search = String(search);
+    if (search && search !== "undefined") inquiry.search = String(search);
 
     const result = await productService.getProducts(inquiry);
 
-    // const query = req.query; //url da yashaydi
-    // console.log("query:", query);
-
-    // const params = req.params; //router da ozgaradi
-    // console.log("params:", params);
-
-    //params bn queeryni birga ishlatish mn
-
-    res.status(HttpCode.OK).json({ result });
+    res.status(HttpCode.OK).json(result);
   } catch (err) {
     console.log("Error, getProducts:", err);
     if (err instanceof Errors) res.status(err.code).json(err);
@@ -89,7 +79,7 @@ productController.createNewProducts = async (
 
     await productService.createNewProduct(data);
     res.send(
-      `<script>alert("Product created successfully"); window.location.replace('admin/product/all')</script>`,
+      `<script>alert("Product created successfully"); window.location.replace('/admin/product/all')</script>`,
     );
   } catch (err) {
     console.log("Error, createNewProducts:", err);
